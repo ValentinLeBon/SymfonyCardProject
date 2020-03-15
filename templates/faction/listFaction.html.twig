@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DeckMaster{% endblock %}
+
+{% block body %}
+    {% for faction in factions %}
+        {{ faction.title }}
+    {% endfor %}
+{% endblock %}

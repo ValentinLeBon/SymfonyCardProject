@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DeckMaster{% endblock %}
+
+{% block body %}
+    {% for card in cards %}
+        <div class="card">
+            <div class="cardHeader">
+                <span> {{ card.title }}</span>
+                <span>  </span>
+            </div>
+            <div class="cardImage" style="background-image: url({{ asset('uploads/') }}{{ card.image }});"></div>
+            <div class="cardFooter">
+                <div class="cardNumber" style="color:#e5e511"> {{ card.cost }} </div>
+                <div class="cardNumber" style="color:#e41812"> {{ card.damage}} </div>
+                <div class="cardNumber" style="color:#45e412">  {{ card.health }}</div>
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DeckMaster{% endblock %}
+
+{% block body %}
+    {% block header %}
+        <nav class="navbar navbar-light bg-light">
+            <a href="{{ path('faction') }}">Création Faction</a>
+            <a href="{{ path('card') }}">Création Carte</a>
+            <a href="{{ path('listcard') }}">Liste des Cartes</a>
+            <a href="{{ path('factionlist') }}">Liste des Factions</a>
+            <a href="{{ path('deck') }}">Création de Deck</a>
+        </nav>
+    {% endblock %}
+
+    <div class="example-wrapper">
+        {% if app.user %}
+        <h1>Hello {{ app.user.username }}! </h1>
+        {% endif %}
+    </div>
+
+    <div id="Content">
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('nav a').click(function (e) {
+                e.preventDefault();
+                $('nav a').removeClass('active');
+                $(this).addClass('active');
+                $("#Content").load($(this).attr('href'));
+            });
+
+            $('#Content').on('submit', 'form', function (e) {
+                e.preventDefault();
+                var form = $(this);
+
+                $.ajax({
+                    type: "POST",
+                    url: form.attr('action'),
+                    data: new FormData(this),
+                    contentType: false,
+                    processData: false,
+                    success: function success(response) {
+                        $("#Content").load($('.active').attr('href'));
+                    }
+                });
+            });
+        });
+
+    </script>
+{% endblock %}
